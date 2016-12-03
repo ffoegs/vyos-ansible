@@ -1,6 +1,6 @@
 ---
- vars:
-  cli:
+ - vars:
+   cli:
     host: [nht-vyostest-01]
     username: vyos
     password: vyos
