@@ -1,0 +1,15 @@
+---
+ vars:
+  cli:
+    host: [nht-vyostest-01]
+    username: vyos
+    password: vyos
+    transport: cli
+
+- vyos_command:
+    commands:
+      - show interfaces ethernet {{ item }}
+    provider: "{{ cli }}"
+  with_items:
+    - eth0
+    - eth1
