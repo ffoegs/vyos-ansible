@@ -1,15 +1,32 @@
 ---
- - vars:
-   cli:
-    host: [nht-vyostest-01]
-    username: vyos
-    password: vyos
-    transport: cli
+- hosts: all
+  gather_facts: no
+  connection: local
+  user: vyos
+  vars:
+    cli:
+      host: 10.200.83.224
+      username: vyos
+      password: vyos
+      transport: cli
 
-- vyos_command:
-    commands:
-      - show interfaces ethernet {{ item }}
-    provider: "{{ cli }}"
-  with_items:
-    - eth0
-    - eth1
+  tasks:
+   - name: ping stuff
+     ping:
+
+
+   - name: Show commands
+     vyos_command:
+       commands:
+          - show version
+          - show hardware cpu
+          - show interfaces
+       provider: "{{ cli }}"
+
+
+   - name: configures vyos hostname
+     vyos_config:
+       lines:
+          - set system host-name {{ inventory_hostname }}
+       provider: "{{ cli }}"
+~
